@@ -15,6 +15,7 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'easymotion/vim-easymotion'
 Plugin 'chriskempson/base16-vim'
 Plugin 'dracula/vim'
+Plugin 'Yggdroot/indentLine' " Indent guide lines
 
 
 
@@ -68,3 +69,11 @@ set nowrap " Disable line auto wrapping
 set t_Co=256 " Enable pretty colors
 filetype plugin indent on " Allow smart indentation and filetype detection
 let mapleader="\<Space>"
+
+" Indentation settings
+set expandtab " Convert tabs to spaces
+let g:indentation_depth = 2 " Number of spaces to indent
+let &shiftwidth=g:indentation_depth " Set distance to move lines or blocks
+let &tabstop=g:indentation_depth " Set tab character width
+let &softtabstop=g:indentation_depth " Set space added by pressing tab key and removed by pressing backspace
+let &backspace=g:indentation_depth " Make backspace work like a sane person would expect
