@@ -20,11 +20,12 @@ Plugin 'chriskempson/base16-vim'
 " Theme background
 Plugin 'dracula/vim'
 " Indent guide lines
-Plugin 'Yggdroot/indentLine'
+" Plugin 'Yggdroot/indentLine'
 " Lint for javascript
 Plugin 'eslint/eslint'
 " Syntac checker
 Plugin 'scrooloose/syntastic'
+Plugin 'bling/vim-airline'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -121,3 +122,4 @@ set hlsearch " Highlight search pattern matches
 set incsearch " Add live highlighting to matches while typing search term
 
 set clipboard=unnamed
+
