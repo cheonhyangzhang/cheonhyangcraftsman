@@ -25,7 +25,11 @@ Plugin 'dracula/vim'
 Plugin 'eslint/eslint'
 " Syntac checker
 Plugin 'scrooloose/syntastic'
+Plugin 'ctrlp.vim'
+Plugin 'vim-gitgutter'
+Plugin 'joukevandermaas/vim-ember-hbs'
 Plugin 'bling/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -69,7 +73,7 @@ autocmd BufWritePre * %s/\s\+$//e
 
 " Make cursor skinny on insert mode
 let &t_SI = "\<Esc>]50;CursorShape=1\x7"
-let &t_SR = "\<Esc>]50;CursorShape=2\x7"
+" let &t_SR = "\<Esc>]50;CursorShape=2\x7"
 let &t_EI = "\<Esc>]50;CursorShape=0\x7"
 
 " Swap/Backup file settings
@@ -113,7 +117,7 @@ let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_enable_perl_checker = 1
 " java config
 let g:syntastic_java_checkers = ['checkstyle']
-let g:syntastic_java_checkstyle_classpath = '/Users/tizhang/.vim/tools/checkstyle-8.12-all.jar'
+let g:syntastic_java_checkstyle_classpath = '/home/tizhang/.vim/tools/checkstyle-8.12-all.jar'
 let g:syntastic_java_checkstyle_conf_file = '$PWD/ligradle/checkstyle/linkedin-checkstyle.xml'
 
 set ignorecase " case-insensitive searching
