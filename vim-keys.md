@@ -28,3 +28,11 @@ repeat the last command
 repeat the last operation for editing.
 ## q:
 show commands history
+
+## panels
+Ctrl + w w switch window
+Ctrl + w = equally spread the width of the window
+Ctrl + w | maximize the current panel
+Ctrl + w o close all other windows
+Ctrl + w h moves one viewport to the left
+Ctrl + w l moves one viewport to the right
