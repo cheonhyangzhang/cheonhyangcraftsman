@@ -1,5 +1,4 @@
 set nocompatible              " required
-filetype on                  " required
 
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
@@ -20,19 +19,23 @@ Plugin 'chriskempson/base16-vim'
 " Theme background
 Plugin 'dracula/vim'
 " Indent guide lines
-" Plugin 'Yggdroot/indentLine'
+Plugin 'Yggdroot/indentLine'
 " Lint for javascript
 Plugin 'eslint/eslint'
 " Syntac checker
 Plugin 'scrooloose/syntastic'
 Plugin 'ctrlp.vim'
-Plugin 'vim-gitgutter'
+" Plugin 'vim-gitgutter'
 Plugin 'joukevandermaas/vim-ember-hbs'
 Plugin 'bling/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
+" handlebars syntax highlighting
+" Highlight pig syntax
+Plugin 'motus/pig.vim'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
+
 filetype plugin indent on    " required
 set autoread " Auto re-read files that have changes outside of vim
 set cursorline " highlight current line
@@ -60,6 +63,8 @@ endif
 set runtimepath^=~/.vim/bundle/ctrlp.vim
 " Respect .gitignore
 let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files . -co --exclude-standard', 'find %s -type f']
+" set filename search by default
+" let g:ctrlp_by_filename = 1
 
 " highlight syntax
 syntax on
@@ -71,10 +76,15 @@ set numberwidth=5
 " strip trailing whitespace on save
 autocmd BufWritePre * %s/\s\+$//e
 
-" Make cursor skinny on insert mode
-let &t_SI = "\<Esc>]50;CursorShape=1\x7"
-" let &t_SR = "\<Esc>]50;CursorShape=2\x7"
-let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+" Change cursor shape between insert and normal mode in iTerm2.app
+" skinny
+if exists('$TMUX')
+  let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\" " Vertical bar in insert mode
+  let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\" " Block in normal mode
+else
+  let &t_SI = "\<Esc>]50;CursorShape=1\x7" " Vertical bar in insert mode
+  let &t_EI = "\<Esc>]50;CursorShape=0\x7" " Block in normal mode
+endif
 
 " Swap/Backup file settings
 set noswapfile " no more weirdo swap files
@@ -93,6 +103,7 @@ let &shiftwidth=g:indentation_depth " Set distance to move lines or blocks
 let &tabstop=g:indentation_depth " Set tab character width
 let &softtabstop=g:indentation_depth " Set space added by pressing tab key and removed by pressing backspace
 let &backspace=g:indentation_depth " Make backspace work like a sane person would expect
+let g:indentLine_enabled = 0
 
 " scrooloose/syntastic
 set statusline+=%#warningmsg#
@@ -119,6 +130,8 @@ let g:syntastic_enable_perl_checker = 1
 let g:syntastic_java_checkers = ['checkstyle']
 let g:syntastic_java_checkstyle_classpath = '/home/tizhang/.vim/tools/checkstyle-8.12-all.jar'
 let g:syntastic_java_checkstyle_conf_file = '$PWD/ligradle/checkstyle/linkedin-checkstyle.xml'
+" template lint config
+let g:ale_linters = {'html': ['embertemplatelint']}
 
 set ignorecase " case-insensitive searching
 set smartcase " make search case-sensitive if search term contains mixed case
@@ -126,4 +139,20 @@ set hlsearch " Highlight search pattern matches
 set incsearch " Add live highlighting to matches while typing search term
 
 set clipboard=unnamed
+
+" Config fzf
+set rtp+=~/.fzf
+
+" Config nterw
+let g:netrw_keepdir=0
+" let g:netrw_banner = 0
+" let g:netrw_liststyle = 3
+" let g:netrw_browse_split = 4
+" let g:netrw_altv = 1
+" let g:netrw_winsize = 25
+" augroup ProjectDrawer
+"  autocmd!
+"  autocmd VimEnter * :Vexplore
+"augroup END
+
 
