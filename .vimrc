@@ -156,3 +156,11 @@ let g:netrw_keepdir=0
 "augroup END
 
 
+" set hybrid line numbers
+:set number relativenumber
+
+:augroup numbertoggle
+:  autocmd!
+:  autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
+:  autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
+:augroup END
