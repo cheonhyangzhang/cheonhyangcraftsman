@@ -1,5 +1,8 @@
-set nocompatible              " required
+" To make sure all the good things for vim stay.
+set nocompatible
 
+" ----------------------   plugin setup -----------------------------
+" Vundle.vim Plugin management https://github.com/VundleVim/Vundle.vim
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
@@ -8,40 +11,38 @@ call vundle#begin()
 
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
-" Use ag to search
+" ack.vim Use ag to search, this plugin enabled to use Ack search in Vim and show
+" results in a separate split window
 Plugin 'mileszs/ack.vim'
-" Git wrapper
+" vim-fugitive Git wrapper, enables to use GBlame, GDiff etc.
 Plugin 'tpope/vim-fugitive'
-" Keyboard only movement
+" vim-easymotion Keyboard only movement, enables to use keys to move around
+" easier
 Plugin 'easymotion/vim-easymotion'
 " Theme background
 Plugin 'chriskempson/base16-vim'
 " Theme background
 Plugin 'dracula/vim'
-" Indent guide lines
+" indentLine, Indent guide lines, show lines for indention
 Plugin 'Yggdroot/indentLine'
 " Lint for javascript
 Plugin 'eslint/eslint'
 " Syntac checker
 Plugin 'scrooloose/syntastic'
+" ctrlp.vim Full path fuzzy file, buffer, mru, tag finder for vim, enables to
+" use ctrl + p to trigger
 Plugin 'ctrlp.vim'
-" Plugin 'vim-gitgutter'
+" vim-ember-hbs enables hbs ember handlebars syntac highlighting and indentation to vim
 Plugin 'joukevandermaas/vim-ember-hbs'
+" vim-airline lean & mean status/tabline for vim at the bottom
 Plugin 'bling/vim-airline'
+" Themes for vim-airline
 Plugin 'vim-airline/vim-airline-themes'
-" handlebars syntax highlighting
 " Highlight pig syntax
 Plugin 'motus/pig.vim'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
-
-filetype plugin indent on    " required
-set autoread " Auto re-read files that have changes outside of vim
-set cursorline " highlight current line
-" To ignore plugin indent changes, instead use:
-"filetype plugin on
-"
 " Brief help
 " :PluginList       - lists configured plugins
 " :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
@@ -50,9 +51,10 @@ set cursorline " highlight current line
 "
 " see :h vundle for more details or wiki for FAQ
 " Put your non-Plugin stuff after this line
-
-
-" mileszs/ack.vim
+" ---------------------- plugin setup end -----------------------------
+"
+" ------------------------------- plugin config -------------------------------
+" mileszs/ack.vim config
 let g:ackhighlight = 1
 if executable('ag')
   " Use ag (the silver searcher) if it's installed
@@ -61,49 +63,15 @@ endif
 
 " ctrlpvim/ctrlp.vim
 set runtimepath^=~/.vim/bundle/ctrlp.vim
-" Respect .gitignore
+" Respect .gitignore, only search files considered as part of git
 let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files . -co --exclude-standard', 'find %s -type f']
 " set filename search by default
 " let g:ctrlp_by_filename = 1
+" To support easymotion shortcut
+let mapleader="\<Space>"
 
-" highlight syntax
-syntax on
-" Turn on line numbers
-set number
-" Gutter width
-set numberwidth=5
-
-" strip trailing whitespace on save
-autocmd BufWritePre * %s/\s\+$//e
-
-" Change cursor shape between insert and normal mode in iTerm2.app
-" skinny
-if exists('$TMUX')
-  let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\" " Vertical bar in insert mode
-  let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\" " Block in normal mode
-else
-  let &t_SI = "\<Esc>]50;CursorShape=1\x7" " Vertical bar in insert mode
-  let &t_EI = "\<Esc>]50;CursorShape=0\x7" " Block in normal mode
-endif
-
-" Swap/Backup file settings
-set noswapfile " no more weirdo swap files
-set nobackup " no more weirdo backup files
-
-set bg=dark " Dark background
-set nowrap " Disable line auto wrapping
-set t_Co=256 " Enable pretty colors
-filetype plugin indent on " Allow smart indentation and filetype detection
-let mapleader="\<Space>" " To support easymotion shortcut
-
-" Indentation settings
-set expandtab " Convert tabs to spaces
-let g:indentation_depth = 2 " Number of spaces to indent
-let &shiftwidth=g:indentation_depth " Set distance to move lines or blocks
-let &tabstop=g:indentation_depth " Set tab character width
-let &softtabstop=g:indentation_depth " Set space added by pressing tab key and removed by pressing backspace
-let &backspace=g:indentation_depth " Make backspace work like a sane person would expect
-let g:indentLine_enabled = 0
+" Turn off indent line
+let g:indentLine_enabled = 1
 
 " scrooloose/syntastic
 set statusline+=%#warningmsg#
@@ -132,35 +100,212 @@ let g:syntastic_java_checkstyle_classpath = '/home/tizhang/.vim/tools/checkstyle
 let g:syntastic_java_checkstyle_conf_file = '$PWD/ligradle/checkstyle/linkedin-checkstyle.xml'
 " template lint config
 let g:ale_linters = {'html': ['embertemplatelint']}
+" ------------------------------- plugin config end-------------------------------
+
+" ------------------------------- basic config -------------------------------
+filetype plugin indent on    " required Allow smart indentation and filetype detection
+set autoread " Auto re-read files that have changes outside of vim
+set cursorline " highlight current line
+" highlight syntax
+syntax on
+" Turn on line numbers
+set number
+" set hybrid line numbers
+:set number relativenumber
+" Gutter width
+set numberwidth=5
+" strip trailing whitespace on save
+autocmd BufWritePre * %s/\s\+$//e
+" Change cursor shape between insert and normal mode in iTerm2.app
+" skinny
+if exists('$TMUX')
+  let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\" " Vertical bar in insert mode
+  let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\" " Block in normal mode
+else
+  let &t_SI = "\<Esc>]50;CursorShape=1\x7" " Vertical bar in insert mode
+  let &t_EI = "\<Esc>]50;CursorShape=0\x7" " Block in normal mode
+endif
+" Swap/Backup file settings
+set noswapfile " no more weirdo swap files
+set nobackup " no more weirdo backup files
+set bg=dark " Dark background
+set t_Co=256 " Enable pretty colors
+set nowrap " Disable line auto wrapping
+
+" Indentation settings
+set expandtab " Convert tabs to spaces
+let g:indentation_depth = 2 " Number of spaces to indent
+let &shiftwidth=g:indentation_depth " Set distance to move lines or blocks
+let &tabstop=g:indentation_depth " Set tab character width
+let &softtabstop=g:indentation_depth " Set space added by pressing tab key and removed by pressing backspace
+let &backspace=g:indentation_depth " Make backspace work like a sane person would expect
 
 set ignorecase " case-insensitive searching
 set smartcase " make search case-sensitive if search term contains mixed case
 set hlsearch " Highlight search pattern matches
 set incsearch " Add live highlighting to matches while typing search term
 
-set clipboard=unnamed
+" This enables vim clipboard sync with system clipboard. Not able to get it
+" working yet so commented out for now.
+" set clipboard=unnamedplus
 
 " Config fzf
-set rtp+=~/.fzf
-
+" set rtp+=~/.fzf
 " Config nterw
-let g:netrw_keepdir=0
-" let g:netrw_banner = 0
-" let g:netrw_liststyle = 3
-" let g:netrw_browse_split = 4
-" let g:netrw_altv = 1
-" let g:netrw_winsize = 25
-" augroup ProjectDrawer
-"  autocmd!
-"  autocmd VimEnter * :Vexplore
-"augroup END
+" let g:netrw_keepdir=0
 
-
-" set hybrid line numbers
-:set number relativenumber
-
+" Automatically switch relativenumber and absolute numbers based on normal
+" mode or insert mode
 :augroup numbertoggle
 :  autocmd!
 :  autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
 :  autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
 :augroup END
+
+
+" ------------------------------- basic config end -------------------------------
+
+
+" --------------------------------------- coc config ------------------
+"  GRADLE_HOME=$HOME/.gradle/ligradle/gradle-4.8 vim if GRALDE_HOME is not
+"  correct
+"  Installation
+"
+"  mkdir -p ~/.vim/pack/coc/start
+"  cd ~/.vim/pack/coc/start
+"  curl --fail -L
+"  https://github.com/neoclide/coc.nvim/archive/release.tar.gz|tar xzfv -
+
+" if hidden is not set, TextEdit might fail.
+" This enables to open a new file without having to save the current edited
+" files. This is going to be helpful when checking definition of a class or
+" method.
+set hidden
+
+" Some servers have issues with backup files, see #649
+set nobackup
+set nowritebackup
+
+" Better display for messages
+set cmdheight=2
+
+" You will have bad experience for diagnostic messages when it's default 4000.
+set updatetime=300
+
+" don't give |ins-completion-menu| messages.
+set shortmess+=c
+
+" always show signcolumns
+set signcolumn=yes
+
+" Use tab for trigger completion with characters ahead and navigate.
+" Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" Use <c-space> to trigger completion.
+inoremap <silent><expr> <c-space> coc#refresh()
+
+" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
+" Coc only does snippet and additional edit on confirm.
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+" Or use `complete_info` if your vim support it, like:
+" inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+
+" Use `[g` and `]g` to navigate diagnostics
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+" Remap keys for gotos
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Use K to show documentation in preview window
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+" Highlight symbol under cursor on CursorHold
+" autocmd CursorHold * silent call CocActionAsync('highlight')
+
+" Remap for rename current word
+nmap <leader>rn <Plug>(coc-rename)
+
+" Remap for format selected region
+xmap <leader>f  <Plug>(coc-format-selected)
+nmap <leader>f  <Plug>(coc-format-selected)
+
+augroup mygroup
+  autocmd!
+  " Setup formatexpr specified filetype(s).
+  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+  " Update signature help on jump placeholder
+  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+augroup end
+
+" Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
+" xmap <leader>a  <Plug>(coc-codeaction-selected)
+" nmap <leader>a  <Plug>(coc-codeaction-selected)
+
+" Remap for do codeAction of current line
+" nmap <leader>ac  <Plug>(coc-codeaction)
+" Fix autofix problem of current line
+" nmap <leader>qf  <Plug>(coc-fix-current)
+
+" Create mappings for function text object, requires document symbols feature of languageserver.
+" xmap if <Plug>(coc-funcobj-i)
+" xmap af <Plug>(coc-funcobj-a)
+" omap if <Plug>(coc-funcobj-i)
+" omap af <Plug>(coc-funcobj-a)
+
+" Use <C-d> for select selections ranges, needs server support, like: coc-tsserver, coc-python
+" nmap <silent> <C-d> <Plug>(coc-range-select)
+" xmap <silent> <C-d> <Plug>(coc-range-select)
+
+" Use `:Format` to format current buffer
+command! -nargs=0 Format :call CocAction('format')
+
+" Use `:Fold` to fold current buffer
+command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+
+" use `:OR` for organize import of current buffer
+command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
+
+" Add status line support, for integration with other plugin, checkout `:h coc-status`
+set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+
+" Using CocList
+" Show all diagnostics
+" nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
+" Manage extensions
+" nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
+" Show commands
+" nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
+" Find symbol of current document
+" nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
+" Search workspace symbols
+" nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
+" Do default action for next item.
+" nnoremap <silent> <space>j  :<C-u>CocNext<CR>
+" Do default action for previous item.
+" nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
+" Resume latest coc list
+" nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
+
+" --------------------------------------- coc config end ------------------
