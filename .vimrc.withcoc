@@ -71,7 +71,7 @@ let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files . -co --exclude-stand
 let mapleader="\<Space>"
 
 " Turn off indent line
-let g:indentLine_enabled = 1
+let g:indentLine_enabled = 0
 
 " scrooloose/syntastic
 set statusline+=%#warningmsg#
@@ -111,7 +111,12 @@ syntax on
 " Turn on line numbers
 set number
 " set hybrid line numbers
-:set number relativenumber
+"
+" :set number relativenumber
+
+" enabled paste mode
+set paste
+
 " Gutter width
 set numberwidth=5
 " strip trailing whitespace on save
@@ -130,7 +135,6 @@ set noswapfile " no more weirdo swap files
 set nobackup " no more weirdo backup files
 set bg=dark " Dark background
 set t_Co=256 " Enable pretty colors
-set nowrap " Disable line auto wrapping
 
 " Indentation settings
 set expandtab " Convert tabs to spaces
@@ -140,6 +144,7 @@ let &tabstop=g:indentation_depth " Set tab character width
 let &softtabstop=g:indentation_depth " Set space added by pressing tab key and removed by pressing backspace
 let &backspace=g:indentation_depth " Make backspace work like a sane person would expect
 
+set linebreak
 set ignorecase " case-insensitive searching
 set smartcase " make search case-sensitive if search term contains mixed case
 set hlsearch " Highlight search pattern matches
@@ -156,15 +161,16 @@ set incsearch " Add live highlighting to matches while typing search term
 
 " Automatically switch relativenumber and absolute numbers based on normal
 " mode or insert mode
-:augroup numbertoggle
-:  autocmd!
-:  autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
-:  autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
-:augroup END
+" :augroup numbertoggle
+" :  autocmd!
+" :  autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
+" :  autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
+" :augroup END
 
+" Make :Explore copy paste file no need to press c
+" let g:netrw_keepdir=0
 
 " ------------------------------- basic config end -------------------------------
-
 
 " --------------------------------------- coc config ------------------
 "  GRADLE_HOME=$HOME/.gradle/ligradle/gradle-4.8 vim if GRALDE_HOME is not
