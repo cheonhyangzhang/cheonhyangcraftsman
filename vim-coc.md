@@ -1,0 +1,1 @@
+java -agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=1044 -Declipse.application=org.eclipse.jdt.ls.core.id1 -Dosgi.bundles.defaultStartLevel=4 -Declipse.product=org.eclipse.jdt.ls.core.product -Dlog.level=ALL -noverify -Xmx1G -jar ./plugins/org.eclipse.equinox.launcher_1.5.700.v20200207-2156.jar -configuration ./config_linux -data /home/tizhang/mps/voyager-api_trunk
