@@ -40,3 +40,12 @@ Ctrl + w o close all other windows
 Ctrl + w h moves one viewport to the left
 Ctrl + w l moves one viewport to the right
 Ctrl + w Ctrl + r switch window
+
+## folding and  unfloding
+:set foldmethod=syntax
+zo open fold
+zc close fold
+za alternate fold
+
+## typing
+ctrl + N auto complete
