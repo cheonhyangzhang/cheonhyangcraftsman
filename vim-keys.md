@@ -49,3 +49,29 @@ za alternate fold
 
 ## typing
 ctrl + N auto complete
+
+# In netrw explorer, after type :explorer
+## remove file/directory
+\<del\>
+## create a directory
+d
+## go to previous marked directory
+gb
+## hide/show dot files
+gh
+## bookmark current directory
+mb
+## Copy marked files to marked-file target directory
+mc
+## Mark a file
+mf
+## Move marked files to marked-file target directory
+mm
+## Current browsing directory becomes markfile target
+mt
+## Unmark all marked files
+mu
+## List bookmarked directories and history
+qb
+## Make browsing directory the current directory
+c

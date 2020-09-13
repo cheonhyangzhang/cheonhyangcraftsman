@@ -5,20 +5,23 @@ set nocompatible
 " Vundle.vim Plugin management https://github.com/VundleVim/Vundle.vim
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
+set rtp+=~/.fzf
 call vundle#begin()
 " alternatively, pass a path where Vundle should install plugins
 "call vundle#begin('~/some/path/here')
 
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
-" ack.vim Use ag to search, this plugin enabled to use Ack search in Vim and show
-" results in a separate split window
-Plugin 'mileszs/ack.vim'
-" vim-fugitive Git wrapper, enables to use GBlame, GDiff etc.
+
+" fzf to search files and variables
+Plugin 'junegunn/fzf.vim'
+
+" vim-fugitive Git wrapper, enables to use Git status, Git diff, Git blame GBlame, GDiff etc
 Plugin 'tpope/vim-fugitive'
-" vim-easymotion Keyboard only movement, enables to use keys to move around
-" easier
+
+" vim-easymotion Keyboard only movement, enables to use keys to move around easier
 Plugin 'easymotion/vim-easymotion'
+
 " Theme background
 Plugin 'chriskempson/base16-vim'
 " Theme background
@@ -29,9 +32,6 @@ Plugin 'Yggdroot/indentLine'
 Plugin 'eslint/eslint'
 " Syntac checker
 Plugin 'scrooloose/syntastic'
-" ctrlp.vim Full path fuzzy file, buffer, mru, tag finder for vim, enables to
-" use ctrl + p to trigger
-Plugin 'ctrlp.vim'
 " vim-ember-hbs enables hbs ember handlebars syntac highlighting and indentation to vim
 Plugin 'joukevandermaas/vim-ember-hbs'
 " vim-airline lean & mean status/tabline for vim at the bottom
@@ -54,19 +54,14 @@ call vundle#end()            " required
 " ---------------------- plugin setup end -----------------------------
 "
 " ------------------------------- plugin config -------------------------------
-" mileszs/ack.vim config
-let g:ackhighlight = 1
-if executable('ag')
-  " Use ag (the silver searcher) if it's installed
-  let g:ackprg = 'ag --vimgrep'
-endif
+" fzf Empty value to disable preview window altogether
+" let g:fzf_preview_window = ''
 
-" ctrlpvim/ctrlp.vim
-set runtimepath^=~/.vim/bundle/ctrlp.vim
-" Respect .gitignore, only search files considered as part of git
-let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files . -co --exclude-standard', 'find %s -type f']
-" set filename search by default
-" let g:ctrlp_by_filename = 1
+" Use ctrl+p to trigger Rg
+nnoremap <silent> <C-p> :Rg<cr>
+" Use ctrl+c key to trigger search for current word
+nnoremap <silent> <C-c> :Rg <C-R><C-W><CR>
+
 " To support easymotion shortcut
 let mapleader="\<Space>"
 
@@ -89,6 +84,8 @@ set statusline+=%*
 " endfunction
 " autocmd VimEnter * call AccentInit()
 
+" turn on debug info
+" let g:syntastic_debug = 1
 " scrooloose/syntastic settings
 let g:syntastic_scss_checkers = ['stylelint']
 let g:syntastic_always_populate_loc_list = 1
@@ -107,7 +104,7 @@ let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_enable_perl_checker = 1
 " java config
 let g:syntastic_java_checkers = ['checkstyle']
-let g:syntastic_java_checkstyle_classpath = '/home/tizhang/.vim/tools/checkstyle-8.12-all.jar'
+let g:syntastic_java_checkstyle_classpath = '/home/tizhang/.vim/tools/checkstyle-8.36-all.jar'
 let g:syntastic_java_checkstyle_conf_file = '$PWD/ligradle/checkstyle/linkedin-checkstyle.xml'
 " template lint config
 let g:ale_linters = {'html': ['embertemplatelint']}
@@ -161,12 +158,29 @@ set smartcase " make search case-sensitive if search term contains mixed case
 set hlsearch " Highlight search pattern matches
 set incsearch " Add live highlighting to matches while typing search term
 
+" Config popup window color
+highlight Pmenu ctermfg=NONE ctermbg=236 cterm=NONE guifg=NONE guibg=#64666d gui=NONE
+highlight PmenuSel ctermfg=NONE ctermbg=24 cterm=NONE guifg=NONE guibg=#204a87 gui=NONE
+
+" make copy and paste file works in explorer
+let g:netrw_keepdir=0
+
+" auto indent on new lines
+set autoindent
+
+" shorten statusline file path
+let g:Powerline_stl_path_style = 'short'
+
+" set a ruler at the 120 character count
+set colorcolumn=120
+highlight ColorColumn ctermbg=15 guibg=white
+
+" :set foldmethod=syntax "Automatically fold by syntax
+
 " This enables vim clipboard sync with system clipboard. Not able to get it
 " working yet so commented out for now.
 " set clipboard=unnamedplus
 
-" Config fzf
-" set rtp+=~/.fzf
 " Config nterw
 " let g:netrw_keepdir=0
 
