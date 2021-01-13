@@ -22,24 +22,29 @@ Plugin 'tpope/vim-fugitive'
 " vim-easymotion Keyboard only movement, enables to use keys to move around easier
 Plugin 'easymotion/vim-easymotion'
 
+" Syntac checker
+Plugin 'scrooloose/syntastic'
+
 " Theme background
 Plugin 'chriskempson/base16-vim'
 " Theme background
 Plugin 'dracula/vim'
-" indentLine, Indent guide lines, show lines for indention
-Plugin 'Yggdroot/indentLine'
-" Lint for javascript
-Plugin 'eslint/eslint'
-" Syntac checker
-Plugin 'scrooloose/syntastic'
+
+
+
+" not currently being used much
 " vim-ember-hbs enables hbs ember handlebars syntac highlighting and indentation to vim
 Plugin 'joukevandermaas/vim-ember-hbs'
-" vim-airline lean & mean status/tabline for vim at the bottom
-Plugin 'bling/vim-airline'
-" Themes for vim-airline
-Plugin 'vim-airline/vim-airline-themes'
+" Lint for javascript
+Plugin 'eslint/eslint'
 " Highlight pig syntax
-Plugin 'motus/pig.vim'
+" Plugin 'motus/pig.vim'
+" indentLine, Indent guide lines, show lines for indention
+" Plugin 'Yggdroot/indentLine'
+" vim-airline lean & mean status/tabline for vim at the bottom
+" Plugin 'bling/vim-airline'
+" Themes for vim-airline
+" Plugin 'vim-airline/vim-airline-themes'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -55,12 +60,25 @@ call vundle#end()            " required
 "
 " ------------------------------- plugin config -------------------------------
 " fzf Empty value to disable preview window altogether
-" let g:fzf_preview_window = ''
+let g:fzf_preview_window = 'up:50%'
 
 " Use ctrl+p to trigger Rg
 nnoremap <silent> <C-p> :Rg<cr>
 " Use ctrl+c key to trigger search for current word
 nnoremap <silent> <C-c> :Rg <C-R><C-W><CR>
+" Use ctrl+g key to find git files
+nnoremap <silent> <C-g> :GFiles<cr>
+" Use ctrl+q key to find git files
+nnoremap <silent> <C-q> :CocList<cr>commands<cr>
+" Use ctrl+e key to find git files
+nnoremap <silent> <C-e> :Explore<cr>
+" Use ctrl+h key to see history
+nnoremap <silent> <C-y> :History<cr>
+
+" Use ctrl+i key to trigger organize import
+" nnoremap <silent> <C-i> :CocList<cr>commands<cr>java.action.organizeImports<cr>
+" Use ctrl+r key to replace the current word in visual mode
+vnoremap <C-r> "hy:%s/<c-r>=expand("<cword>")<cr>//g<left><left>
 
 " To support easymotion shortcut
 let mapleader="\<Space>"
@@ -75,12 +93,8 @@ set statusline+=%*
 
 " vim-airline config
 " function! AccentInit()
-"  let g:airline_section_a = airline#section#create(['mode',' ','branch'])
+"  let g:airline_section_a = airline#section#create(['mode','branch'])
 "  let g:airline_section_b = airline#section#create_left(['ffenc','hunks','%f'])
-"  let g:airline_section_c = airline#section#create(['filetype'])
-"  let g:airline_section_x = airline#section#create(['%P'])
-"  let g:airline_section_y = airline#section#create(['%B'])
-"  let g:airline_section_z = airline#section#create(['%l','%c'])
 " endfunction
 " autocmd VimEnter * call AccentInit()
 
@@ -106,6 +120,8 @@ let g:syntastic_enable_perl_checker = 1
 let g:syntastic_java_checkers = ['checkstyle']
 let g:syntastic_java_checkstyle_classpath = '/home/tizhang/.vim/tools/checkstyle-8.36-all.jar'
 let g:syntastic_java_checkstyle_conf_file = '$PWD/ligradle/checkstyle/linkedin-checkstyle.xml'
+let g:syntastic_java_checkstyle_args = "-Dconfig_loc=$PWD/ligradle/checkstyle"
+
 " template lint config
 let g:ale_linters = {'html': ['embertemplatelint']}
 " ------------------------------- plugin config end-------------------------------
@@ -163,7 +179,9 @@ highlight Pmenu ctermfg=NONE ctermbg=236 cterm=NONE guifg=NONE guibg=#64666d gui
 highlight PmenuSel ctermfg=NONE ctermbg=24 cterm=NONE guifg=NONE guibg=#204a87 gui=NONE
 
 " make copy and paste file works in explorer
-let g:netrw_keepdir=0
+" Setting g:netrw_keepdir to 0 tells netrw to make vim's current directory
+" track netrw's browsing directory.
+" let g:netrw_keepdir=0
 
 " auto indent on new lines
 set autoindent
@@ -174,6 +192,25 @@ let g:Powerline_stl_path_style = 'short'
 " set a ruler at the 120 character count
 set colorcolumn=120
 highlight ColorColumn ctermbg=15 guibg=white
+
+" config statusline start
+function! GitBranch()
+  return system("git rev-parse --abbrev-ref HEAD 2>/dev/null | tr -d '\n'")
+endfunction
+
+function! StatuslineGit()
+  let l:branchname = GitBranch()
+  return strlen(l:branchname) > 0?'  '.l:branchname.' ':''
+endfunction
+
+set laststatus=2
+set statusline=
+set statusline+=%#PmenuSel#
+set statusline+=%{StatuslineGit()}
+set statusline+=%#Pmenu#
+set statusline+=\ %t
+set statusline+=%=
+" config statusline end
 
 " :set foldmethod=syntax "Automatically fold by syntax
 
