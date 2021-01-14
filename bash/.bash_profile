@@ -30,3 +30,7 @@ alias grd='git review dcommit -r'
 set -o vi
 # set fzf and use fzf search for ctrl + r for command history
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+export VOLTA_HOME="$HOME/.volta"
+export PATH="$VOLTA_HOME/bin:$PATH"
+export GRADLE_HOME=$HOME/.gradle/ligradle/gradle-5.2.1
+export PATH=$PATH:/export/apps/xtools/gradle-1.12/bin
