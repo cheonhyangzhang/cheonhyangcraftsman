@@ -33,4 +33,7 @@ set -o vi
 export VOLTA_HOME="$HOME/.volta"
 export PATH="$VOLTA_HOME/bin:$PATH"
 export GRADLE_HOME=$HOME/.gradle/ligradle/gradle-5.2.1
-export PATH=$PATH:/export/apps/xtools/gradle-1.12/bin
+
+# use vim as the default editor
+export VISUAL=vim
+export EDITOR="$VISUAL"
