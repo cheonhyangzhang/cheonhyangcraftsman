@@ -118,7 +118,9 @@ let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_enable_perl_checker = 1
 " java config
 let g:syntastic_java_checkers = ['checkstyle']
-let g:syntastic_java_checkstyle_classpath = '/home/tizhang/.vim/tools/checkstyle-8.36-all.jar'
+" let g:syntastic_java_checkstyle_classpath = '/home/tizhang/.vim/tools/checkstyle-8.36-all.jar'
+" voyager-api checkstyle
+let g:syntastic_java_checkstyle_classpath = '$PWD/build/checkstyle/libs/voyager-api-checks.jar'
 let g:syntastic_java_checkstyle_conf_file = '$PWD/ligradle/checkstyle/linkedin-checkstyle.xml'
 let g:syntastic_java_checkstyle_args = "-Dconfig_loc=$PWD/ligradle/checkstyle"
 
@@ -265,6 +267,9 @@ set shortmess+=c
 
 " always show signcolumns
 set signcolumn=yes
+
+" use paste ode
+set paste
 
 " Use tab for trigger completion with characters ahead and navigate.
 " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
