@@ -1,7 +1,7 @@
 {
   "java.home":"/export/apps/jdk/JDK-1_8_0_172",
-  "java.import.gradle.wrapper.enabled": true,
-  "java.import.gradle.home": "/home/tizhang/.gradle/ligradle/gradle-5.2.1",
+  "java.jdt.ls.vmargs": "-javaagent:/home/tizhang/tools/lombok.jar",
+  "java.import.gradle.wrapper.enabled": false,
   "java.completion.importOrder":[],
   "java.errors.incompleteClasspath.severity":"error",
   "java.progressReports.enabled":true,
@@ -13,7 +13,7 @@
     },
     {
       "name": "JavaSE-11",
-      "path": "/export/apps/jdk/JDK-11_0_5-zulu"
+      "path": "/export/apps/jdk/JDK-11_0_8-msft"
     }
   ]
 }
