@@ -120,7 +120,7 @@ let g:syntastic_enable_perl_checker = 1
 let g:syntastic_java_checkers = ['checkstyle']
 " let g:syntastic_java_checkstyle_classpath = '/home/tizhang/.vim/tools/checkstyle-8.36-all.jar'
 " voyager-api checkstyle
-let g:syntastic_java_checkstyle_classpath = '$PWD/build/checkstyle/libs/voyager-api-checks.jar'
+let g:syntastic_java_checkstyle_classpath = '/home/tizhang/mps/voyager-api/build/checkstyle/libs/voyager-api-checks.jar'
 let g:syntastic_java_checkstyle_conf_file = '$PWD/ligradle/checkstyle/linkedin-checkstyle.xml'
 let g:syntastic_java_checkstyle_args = "-Dconfig_loc=$PWD/ligradle/checkstyle"
 

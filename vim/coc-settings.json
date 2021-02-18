@@ -1,7 +1,7 @@
 {
   "java.home":"/export/apps/jdk/JDK-1_8_0_172",
   "java.jdt.ls.vmargs": "-javaagent:/home/tizhang/tools/lombok.jar",
-  "java.import.gradle.wrapper.enabled": false,
+  "java.import.gradle.wrapper.enabled": true,
   "java.completion.importOrder":[],
   "java.errors.incompleteClasspath.severity":"error",
   "java.progressReports.enabled":true,

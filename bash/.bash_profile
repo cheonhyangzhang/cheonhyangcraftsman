@@ -46,3 +46,11 @@ export PATH="$HOME/mps/tizhang/commands/executables/:$PATH"
 export JAVA_HOME="/export/apps/jdk/JDK-1_8_0_172"
 export PATH="$JAVA_HOME/bin:$PATH"
 
+# setup ssh access
+if [ -x /usr/bin/keychain ] ; then
+        MYNAME=`/usr/bin/whoami`
+        if [ -f ~/.ssh/${MYNAME}_at_linkedin.com_ssh_key ] ; then
+              /usr/bin/keychain ~/.ssh/${MYNAME}_at_linkedin.com_ssh_key
+              . ~/.keychain/`hostname`-sh
+        fi
+fi
