@@ -21,6 +21,8 @@ alias tml='tmux list-sessions'
 # Use fzf search for ctrl + r for command history
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
+alias mu='mint update'
+alias mc='mint checkout'
 alias mcmb='mint clean && mint build'
 alias grc='git review create'
 alias gru='git review update'
@@ -35,8 +37,6 @@ alias killjs='killjava; killnode; killember'
 set -o vi
 # set fzf and use fzf search for ctrl + r for command history
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
-export VOLTA_HOME="$HOME/.volta"
-export PATH="$VOLTA_HOME/bin:$PATH"
 export GRADLE_HOME=$HOME/.gradle/ligradle/gradle-5.2.1
 
 # use vim as the default editor
@@ -54,3 +54,5 @@ if [ -x /usr/bin/keychain ] ; then
               . ~/.keychain/`hostname`-sh
         fi
 fi
+export VOLTA_HOME="$HOME/.volta"
+export PATH="$VOLTA_HOME/bin:$PATH"

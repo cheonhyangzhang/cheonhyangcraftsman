@@ -80,6 +80,10 @@ nnoremap <silent> <C-y> :History<cr>
 " Use ctrl+r key to replace the current word in visual mode
 vnoremap <C-r> "hy:%s/<c-r>=expand("<cword>")<cr>//g<left><left>
 
+" allow gx to be used to open the current url word in the default browser
+" seems like a conflict with netrw
+nmap <silent> gx :!open <cWORD><cr>
+
 " To support easymotion shortcut
 let mapleader="\<Space>"
 
