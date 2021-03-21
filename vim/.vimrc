@@ -9,29 +9,20 @@ set rtp+=~/.fzf
 call vundle#begin()
 " alternatively, pass a path where Vundle should install plugins
 "call vundle#begin('~/some/path/here')
-
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
-
 " fzf to search files and variables
 Plugin 'junegunn/fzf.vim'
-
 " vim-fugitive Git wrapper, enables to use Git status, Git diff, Git blame GBlame, GDiff etc
 Plugin 'tpope/vim-fugitive'
-
 " vim-easymotion Keyboard only movement, enables to use keys to move around easier
 Plugin 'easymotion/vim-easymotion'
-
 " Syntac checker
 Plugin 'scrooloose/syntastic'
-
 " Theme background
-Plugin 'chriskempson/base16-vim'
+" Plugin 'chriskempson/base16-vim'
 " Theme background
-Plugin 'dracula/vim'
-
-
-
+" Plugin 'dracula/vim'
 " not currently being used much
 " vim-ember-hbs enables hbs ember handlebars syntac highlighting and indentation to vim
 Plugin 'joukevandermaas/vim-ember-hbs'
@@ -57,54 +48,18 @@ call vundle#end()            " required
 " see :h vundle for more details or wiki for FAQ
 " Put your non-Plugin stuff after this line
 " ---------------------- plugin setup end -----------------------------
-"
+
 " ------------------------------- plugin config -------------------------------
 " fzf Empty value to disable preview window altogether
 let g:fzf_preview_window = 'up:50%'
-
-" Use ctrl+p to trigger Rg
-nnoremap <silent> <C-p> :Rg<cr>
-" Use ctrl+c key to trigger search for current word
-nnoremap <silent> <C-c> :Rg <C-R><C-W><CR>
-" Use ctrl+g key to find git files
-nnoremap <silent> <C-g> :GFiles<cr>
-" Use ctrl+q key to find git files
-nnoremap <silent> <C-q> :CocList<cr>commands<cr>
-" Use ctrl+e key to find git files
-nnoremap <silent> <C-e> :Explore<cr>
-" Use ctrl+h key to see history
-nnoremap <silent> <C-y> :History<cr>
-
-" Use ctrl+i key to trigger organize import
-" nnoremap <silent> <C-i> :CocList<cr>commands<cr>java.action.organizeImports<cr>
-" Use ctrl+r key to replace the current word in visual mode
-vnoremap <C-r> "hy:%s/<c-r>=expand("<cword>")<cr>//g<left><left>
-
-" allow gx to be used to open the current url word in the default browser
-" seems like a conflict with netrw
-nmap <silent> gx :!open <cWORD><cr>
-
 " To support easymotion shortcut
 let mapleader="\<Space>"
-
-" Turn off indent line
-let g:indentLine_enabled = 0
-
-" scrooloose/syntastic
+" scrooloose/syntastic settings
+" turn on debug info
+" let g:syntastic_debug = 1
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
-
-" vim-airline config
-" function! AccentInit()
-"  let g:airline_section_a = airline#section#create(['mode','branch'])
-"  let g:airline_section_b = airline#section#create_left(['ffenc','hunks','%f'])
-" endfunction
-" autocmd VimEnter * call AccentInit()
-
-" turn on debug info
-" let g:syntastic_debug = 1
-" scrooloose/syntastic settings
 let g:syntastic_scss_checkers = ['stylelint']
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_loc_list_height = 5
@@ -127,30 +82,34 @@ let g:syntastic_java_checkers = ['checkstyle']
 let g:syntastic_java_checkstyle_classpath = '/home/tizhang/mps/voyager-api/build/checkstyle/libs/voyager-api-checks.jar'
 let g:syntastic_java_checkstyle_conf_file = '$PWD/ligradle/checkstyle/linkedin-checkstyle.xml'
 let g:syntastic_java_checkstyle_args = "-Dconfig_loc=$PWD/ligradle/checkstyle"
-
 " template lint config
 let g:ale_linters = {'html': ['embertemplatelint']}
 " ------------------------------- plugin config end-------------------------------
 
 " ------------------------------- basic config -------------------------------
+" Turn off indent line
 filetype plugin indent on    " required Allow smart indentation and filetype detection
-set autoread " Auto re-read files that have changes outside of vim
+let g:indentLine_enabled = 0
 set cursorline " highlight current line
+" set autoread " Auto re-read files that have changes outside of vim
 " highlight syntax
 syntax on
 " Turn on line numbers
 set number
 " set hybrid line numbers
-"
-" :set number relativenumber
+" set number relativenumber
 
 " enabled paste mode
-set paste
+" This will cause render issue when typing
+" E.g. when type a it might end up with aa, then if switch line and the line re-rendered the text will look correct
+" looks like not the root cause of this issue
+" set paste
 
 " Gutter width
 set numberwidth=5
 " strip trailing whitespace on save
 autocmd BufWritePre * %s/\s\+$//e
+
 " Change cursor shape between insert and normal mode in iTerm2.app
 " skinny
 if exists('$TMUX')
@@ -163,6 +122,7 @@ endif
 " Swap/Backup file settings
 set noswapfile " no more weirdo swap files
 set nobackup " no more weirdo backup files
+" make vim pretty
 set bg=dark " Dark background
 set t_Co=256 " Enable pretty colors
 
@@ -174,9 +134,9 @@ let &tabstop=g:indentation_depth " Set tab character width
 let &softtabstop=g:indentation_depth " Set space added by pressing tab key and removed by pressing backspace
 let &backspace=g:indentation_depth " Make backspace work like a sane person would expect
 
-set linebreak
-set ignorecase " case-insensitive searching
-set smartcase " make search case-sensitive if search term contains mixed case
+set wrap nolist linebreak " make wrap looks great
+" case-insensitive searching and also make search case-sensitive if search term contains mixed case
+set ignorecase smartcase
 set hlsearch " Highlight search pattern matches
 set incsearch " Add live highlighting to matches while typing search term
 
@@ -188,10 +148,8 @@ highlight PmenuSel ctermfg=NONE ctermbg=24 cterm=NONE guifg=NONE guibg=#204a87 g
 " Setting g:netrw_keepdir to 0 tells netrw to make vim's current directory
 " track netrw's browsing directory.
 " let g:netrw_keepdir=0
-
 " auto indent on new lines
 set autoindent
-
 " shorten statusline file path
 let g:Powerline_stl_path_style = 'short'
 
@@ -238,6 +196,24 @@ set statusline+=%=
 " Make :Explore copy paste file no need to press c
 " let g:netrw_keepdir=0
 
+" shortcuts section
+" Use ctrl+p to trigger Rg
+nnoremap <silent> <C-p> :Rg<cr>
+" Use ctrl+c key to trigger search for current word
+nnoremap <silent> <C-c> :Rg <C-R><C-W><CR>
+" Use ctrl+g key to find git files
+nnoremap <silent> <C-g> :GFiles<cr>
+" Use ctrl+m key to find git files
+nnoremap <silent> <C-m> :CocList<cr>commands<cr>
+" Use ctrl+e key to find git files
+nnoremap <silent> <C-e> :Explore<cr>
+" Use ctrl+h key to see history
+nnoremap <silent> <C-y> :History<cr>
+" Use ctrl+r key to replace the current word in visual mode
+vnoremap <C-r> "hy:%s/<c-r>=expand("<cword>")<cr>//g<left><left>
+" allow gx to be used to open the current url word in the default browser
+" seems like a conflict with netrw
+nmap <silent> gx :!open <cWORD><cr>
 " ------------------------------- basic config end -------------------------------
 
 " --------------------------------------- coc config ------------------
@@ -273,7 +249,7 @@ set shortmess+=c
 set signcolumn=yes
 
 " use paste ode
-set paste
+" set paste
 
 " Use tab for trigger completion with characters ahead and navigate.
 " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
