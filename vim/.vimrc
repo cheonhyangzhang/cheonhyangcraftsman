@@ -2,6 +2,9 @@
 set nocompatible
 
 " -- basic start --------------------------
+" make vim pretty dislay color max of 256
+set bg=dark
+set t_Co=256
 " highlight syntax
 syntax on
 " turn on line numbers
