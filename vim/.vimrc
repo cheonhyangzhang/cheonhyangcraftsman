@@ -49,26 +49,31 @@ set colorcolumn=120
 highlight ColorColumn ctermbg=15 guibg=white
 " display statusline always
 set laststatus=2
+" display filename in statusline
+set statusline=%f
 " -- basic end --------------------------
 
 " -- shortcut start --------------------------
-" Use ctrl+p to trigger Rg
-nnoremap <silent> <C-p> :Rg<cr>
-" Use ctrl+c key to trigger search for current word
-nnoremap <silent> <C-c> :Rg <C-R><C-W><CR>
-" Use ctrl+g key to find git files
-nnoremap <silent> <C-g> :GFiles<cr>
-" Use ctrl+m key to find git files
-nnoremap <silent> <C-m> :CocList<cr>commands<cr>
-" Use ctrl+e key to find git files
-nnoremap <silent> <C-e> :Explore<cr>
-" Use ctrl+h key to see history
-nnoremap <silent> <C-y> :History<cr>
 " Use ctrl+r key to replace the current word in visual mode
 vnoremap <C-r> "hy:%s/<c-r>=expand("<cword>")<cr>//g<left><left>
 " allow gx to be used to open the current url word in the default browser
 " seems like a conflict with netrw
 nmap <silent> gx :!open <cWORD><cr>
+" to simplify ctrl keys
+noremap <Space> <Nop>
+map <Space> <Leader>
+noremap <leader>w <C-w>
+noremap <leader>e :Explore<cr>
+noremap <leader>y <C-^>
+noremap <leader>o <C-o>
+noremap <leader>i <C-i>
+noremap <leader>g :GFiles<cr>
+noremap <leader>p :Rg<cr>
+" Use leader+c key to trigger search for current word
+noremap <leader>c :Rg <C-R><C-W><CR>
+noremap <leader>h :History<cr>
+" Use ctrl+m key to find git files
+noremap <leader>m :CocList<cr>commands<cr>
 " -- shortcut end --------------------------
 
 " -- plugin setup -----------------------------
